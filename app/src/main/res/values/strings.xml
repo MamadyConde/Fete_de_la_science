@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Fête de la Science</string>
+    <string name="thematiques">THEMATIQUE(S)</string>
+    <string name="titre">Titre:</string>
+    <string name="ville">Ville:</string>
+    <string name="date">Date:</string>
+    <string name="title_activity_detail_event">DetailEventActivity</string>
+    <string name="description">DESCRIPTION</string>
+    <string name="animation">TYPE D\'ANIMATION</string>
+    <string name="horaire">HORAIRES</string>
+    <string name="lieu">LIEU</string>
+    <string name="adresse">ADRESSE</string>
+</resources>
