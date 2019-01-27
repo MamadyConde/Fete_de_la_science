@@ -1,24 +1,21 @@
 package fr.m2ccn.istic.fete_de_la_science;
 
-import android.content.Context;
-import android.nfc.Tag;
+
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
+
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,18 +25,19 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import fr.m2ccn.istic.fete_de_la_science.adapter.Myadapter;
 import fr.m2ccn.istic.fete_de_la_science.model.EventData;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     DatabaseReference reference;
     RecyclerView recyclerView;
     ArrayList<EventData> listEventData;
     Myadapter adapter;
-    private EditText mSearchField;
-    private ImageButton mSearchBtn;
+    private int selectedFilter = 0;
+
 
 
 
@@ -48,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSearchField = (EditText) findViewById(R.id.search_field);
-        mSearchBtn = (ImageButton) findViewById(R.id.search_btn);
+
         recyclerView = (RecyclerView) findViewById(R.id.myRecycler);
 
 
@@ -78,9 +75,11 @@ public class MainActivity extends AppCompatActivity {
                     String codePostal = dataSnapshot.child("fields").child("code_postal").getValue(String.class);
                     String adresse = dataSnapshot.child("fields").child("adresse").getValue(String.class);
                     String lieu = dataSnapshot.child("fields").child("nom_du_lieu").getValue(String.class);
+                    String date = dataSnapshot.child("fields").child("dates").getValue(String.class);
+                    String motcle = dataSnapshot.child("fields").child("mots_cles_fr").getValue(String.class);
 
 
-                    EventData myEventData = new EventData(thematique,titre, ville,image,animation,description,descriptionlongue,adresse,codePostal,horaire,lieu);
+                    EventData myEventData = new EventData(thematique,titre, ville,image,animation,description,descriptionlongue,adresse,codePostal,horaire,lieu,date,motcle);
                     listEventData.add(myEventData);
 
                     adapter = new Myadapter(MainActivity.this, listEventData);
@@ -97,67 +96,63 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-        mSearchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String searchText = mSearchField.getText().toString();
-                Log.i("tatata",searchText);
-                firebaseSearch(searchText);
-
-            }
-        });
 
     }
 
-    private void firebaseSearch(String searchText) {
-        Toast.makeText(MainActivity.this, "Started Search", Toast.LENGTH_LONG).show();
-        int i = 0;
-        while (i < 6366) {
-            reference = FirebaseDatabase.getInstance().getReference("dataFetedelaScience").child(Integer.toString(i));
-            Query firebaseSearchQuery = reference.child("fields").child("titre_fr").startAt(searchText).endAt(searchText + "\uf8ff");
-            Log.i("zzzzz", firebaseSearchQuery.toString());
-            i++;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //ajoute les entrées de menu_test à l'ActionBar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_menu, menu);
+        //inflater.inflate(R.menu.menu, menu);
+        MenuItem item = menu.findItem(R.id.search_bar);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(this);
+        return true;
+    }
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
-            FirebaseRecyclerAdapter<EventData, MyViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<EventData, MyViewHolder>(
-                    EventData.class,
-                    R.layout.cardview,
-                    MyViewHolder.class,
-                    firebaseSearchQuery
-
-            ) {
-
-                @Override
-                protected void populateViewHolder(MyViewHolder viewHolder, EventData model, int position) {
-
-                    viewHolder.setDetails(getApplicationContext(),model.getTitre(), model.getDescription());
+    @Override
+    public boolean onQueryTextChange(String inputText) {
+        String userInput = inputText.toLowerCase();
+        List<EventData> Listfiltre = new ArrayList<>();
+        switch (selectedFilter) {
+            case 0:
+            for (EventData event : (listEventData)) {
+                if (event.getNomLieu() != null) {
+                    if (event.getNomLieu().toLowerCase().contains(userInput))
+                        Listfiltre.add(event);
                 }
-            };
-
-            recyclerView.setAdapter(firebaseRecyclerAdapter);
+            }
+            case 1:
+                for (EventData event : (listEventData)) {
+                    if (event.getThematique() != null) {
+                        if (event.getThematique().toLowerCase().contains(userInput))
+                            Listfiltre.add(event);
+                    }
+                }
+            case 2:
+                for (EventData event : (listEventData)) {
+                    if (event.getDate() != null) {
+                        if (event.getDate().toLowerCase().contains(userInput))
+                            Listfiltre.add(event);
+                    }
+                }
+            case 3:
+                for (EventData event : (listEventData)) {
+                    if (event.getMotcle() != null) {
+                        if (event.getMotcle().toLowerCase().contains(userInput))
+                            Listfiltre.add(event);
+                    }
+                }
         }
+        adapter.updateEventList(Listfiltre);
+        return true;
     }
-    public class MyViewHolder extends RecyclerView.ViewHolder
-    {
-        CardView myCardView;
-        TextView titre,ville,region, description;
 
-        View mView;
 
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            mView = itemView;
-
-        }
-        public void setDetails(Context ctx, String Titre, String Description){
-
-            titre =  (TextView) itemView.findViewById(R.id.carTitre);
-            description = (TextView) itemView.findViewById(R.id.carDescription);
-
-            titre.setText(Titre);
-            description.setText(Description);
-        }
-
-    }
 
 }

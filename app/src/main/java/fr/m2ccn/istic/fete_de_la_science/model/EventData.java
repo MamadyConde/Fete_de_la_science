@@ -13,9 +13,11 @@ public class EventData {
     private String codePostale;
     private String horaire;
     private String nomLieu;
+    private String date;
+    private String motcle;
 
 
-    public EventData(String thematique, String titre, String ville, String image, String animation, String description, String descriptionlongue, String adresse, String codePostale, String horaire, String nomLieu) {
+    public EventData(String thematique, String titre, String ville, String image, String animation, String description, String descriptionlongue, String adresse, String codePostale, String horaire, String nomLieu, String date, String motcle) {
         this.thematique = thematique;
         this.titre = titre;
         this.ville = ville;
@@ -27,6 +29,8 @@ public class EventData {
         this.codePostale = codePostale;
         this.horaire = horaire;
         this.nomLieu = nomLieu;
+        this.date = date;
+        this.motcle = motcle;
     }
 
     public String getThematique() {
@@ -115,5 +119,21 @@ public class EventData {
 
     public void setNomLieu(String nomLieu) {
         this.nomLieu = nomLieu;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getMotcle() {
+        return motcle;
+    }
+
+    public void setMotcle(String motcle) {
+        this.motcle = motcle;
     }
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import fr.m2ccn.istic.fete_de_la_science.DetailEventActivity;
@@ -72,7 +73,11 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.MyViewHolder>  {
         return eventDataList.size();
     }
 
-
+    public void updateEventList(List<EventData> newEventList){
+        eventDataList = new ArrayList<EventData>();
+        eventDataList.addAll(newEventList);
+        notifyDataSetChanged();
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
@@ -86,14 +91,6 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.MyViewHolder>  {
             description = (TextView) itemView.findViewById(R.id.carDescription);
             myCardView = (CardView) itemView.findViewById(R.id.cardview);
 
-        }
-        public void setDetails(String Titre, String Description){
-
-           titre =  (TextView) itemView.findViewById(R.id.carTitre);
-           description = (TextView) itemView.findViewById(R.id.carDescription);
-
-            titre.setText(Titre);
-            description.setText(Description);
         }
 
     }
