@@ -2,18 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <group android:checkableBehavior="single">
         <item
-            android:id="@+id/first"
+            android:id="@+id/liste"
             android:icon="@mipmap/ic_launcher"
-            android:title="First Menu" />
+            android:title="Liste" />
         <item
-            android:id="@+id/second"
+            android:id="@+id/parcours"
             android:icon="@mipmap/ic_launcher"
-            android:title="Second Menu" />
+            android:title="Parcours" />
         <item
-            android:id="@+id/third"
+            android:id="@+id/carte"
             android:icon="@mipmap/ic_launcher"
-            android:title="Third Menu" />
-    </group>
+            android:title="Carte" />
 </menu>

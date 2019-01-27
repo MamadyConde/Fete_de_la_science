@@ -1,6 +1,7 @@
 package fr.m2ccn.istic.fete_de_la_science;
 
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         //ajoute les entrées de menu_test à l'ActionBar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
-        //inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.nav_items, menu);
         MenuItem item = menu.findItem(R.id.search_bar);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(this);
@@ -151,6 +152,25 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }
         adapter.updateEventList(Listfiltre);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.liste:
+                Intent myIntent = new Intent(this,MainActivity.class);
+                startActivity(myIntent);
+
+                break;
+            case R.id.parcours:
+                Toast.makeText(MainActivity.this, "parcours", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.carte:
+                Toast.makeText(MainActivity.this, "carte", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 
 

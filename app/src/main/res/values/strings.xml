@@ -11,5 +11,5 @@
     <string name="lieu">LIEU</string>
     <string name="adresse">ADRESSE</string>
     <string name="label_filter">Filtre</string>
-    <string name="title_event">Evenement</string>
+    <string name="title_event">Événement</string>
 </resources>

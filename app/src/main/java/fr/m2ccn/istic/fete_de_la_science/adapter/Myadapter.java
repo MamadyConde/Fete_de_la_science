@@ -42,7 +42,7 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.MyViewHolder>  {
     public void onBindViewHolder(@NonNull final Myadapter.MyViewHolder holder, int position) {
         holder.titre.setText(eventDataList.get(position).getTitre());
         holder.description.setText(eventDataList.get(position).getDescription());
-       // Picasso.get().load(eventDataList.get(position).getImage()).into(holder.image);
+        Picasso.get().load(eventDataList.get(position).getImage()).into(holder.image);
 
         holder.myCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,13 +83,14 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.MyViewHolder>  {
     {
         CardView myCardView;
         TextView titre,ville,region, description;
-        //ImageView image;
+        ImageView image;
         //Button btn;
         public MyViewHolder(View itemView) {
             super(itemView);
             titre = (TextView) itemView.findViewById(R.id.carTitre);
             description = (TextView) itemView.findViewById(R.id.carDescription);
             myCardView = (CardView) itemView.findViewById(R.id.cardview);
+            image = (ImageView) itemView.findViewById(R.id.carImage);
 
         }
 
