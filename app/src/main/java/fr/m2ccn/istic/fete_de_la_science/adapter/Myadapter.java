@@ -61,6 +61,7 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.MyViewHolder>  {
                 myIntent.putExtra("CodePostal", eventDataList.get(holder.getAdapterPosition()).getCodePostale());
                 myIntent.putExtra("Adresse", eventDataList.get(holder.getAdapterPosition()).getAdresse());
                 myIntent.putExtra("Lieu", eventDataList.get(holder.getAdapterPosition()).getNomLieu());
+                myIntent.putExtra("Telephone", eventDataList.get(holder.getAdapterPosition()).getTelephone());
 
 
                 context.startActivity(myIntent); //lancement de l'intent

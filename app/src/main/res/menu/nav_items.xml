@@ -2,10 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <item
-            android:id="@+id/liste"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Liste" />
+
         <item
             android:id="@+id/parcours"
             android:icon="@mipmap/ic_launcher"

@@ -15,9 +15,10 @@ public class EventData {
     private String nomLieu;
     private String date;
     private String motcle;
+    private String telephone;
 
 
-    public EventData(String thematique, String titre, String ville, String image, String animation, String description, String descriptionlongue, String adresse, String codePostale, String horaire, String nomLieu, String date, String motcle) {
+    public EventData(String thematique, String titre, String ville, String image, String animation, String description, String descriptionlongue, String adresse, String codePostale, String horaire, String nomLieu, String date, String motcle,String telephone) {
         this.thematique = thematique;
         this.titre = titre;
         this.ville = ville;
@@ -31,6 +32,7 @@ public class EventData {
         this.nomLieu = nomLieu;
         this.date = date;
         this.motcle = motcle;
+        this.telephone= telephone;
     }
 
     public String getThematique() {
@@ -135,5 +137,13 @@ public class EventData {
 
     public void setMotcle(String motcle) {
         this.motcle = motcle;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 }

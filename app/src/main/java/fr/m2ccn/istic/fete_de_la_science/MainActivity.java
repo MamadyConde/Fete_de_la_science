@@ -78,9 +78,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     String lieu = dataSnapshot.child("fields").child("nom_du_lieu").getValue(String.class);
                     String date = dataSnapshot.child("fields").child("dates").getValue(String.class);
                     String motcle = dataSnapshot.child("fields").child("mots_cles_fr").getValue(String.class);
+                    String telephone = dataSnapshot.child("fields").child("telephone_du_lieu").getValue(String.class);
 
 
-                    EventData myEventData = new EventData(thematique,titre, ville,image,animation,description,descriptionlongue,adresse,codePostal,horaire,lieu,date,motcle);
+                    EventData myEventData = new EventData(thematique,titre, ville,image,animation,description,descriptionlongue,adresse,codePostal,horaire,lieu,date,motcle,telephone);
                     listEventData.add(myEventData);
 
                     adapter = new Myadapter(MainActivity.this, listEventData);
@@ -102,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //ajoute les entrées de menu_test à l'ActionBar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_menu, menu);
         inflater.inflate(R.menu.nav_items, menu);
@@ -157,16 +157,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            case R.id.liste:
-                Intent myIntent = new Intent(this,MainActivity.class);
-                startActivity(myIntent);
-
-                break;
             case R.id.parcours:
                 Toast.makeText(MainActivity.this, "parcours", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.carte:
-                Toast.makeText(MainActivity.this, "carte", Toast.LENGTH_SHORT).show();
+                Intent myIntentcarte = new Intent(this,MapsActivity.class);
+                startActivity(myIntentcarte);
                 break;
         }
         return super.onOptionsItemSelected(item);

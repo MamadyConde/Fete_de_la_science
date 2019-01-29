@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <item
+        android:id="@+id/liste"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Liste"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/parcours"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Parcours"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/carte"
+        android:icon="@mipmap/ic_launcher"
+        android:title="Carte"
+        app:showAsAction="never"/>
+</menu>
