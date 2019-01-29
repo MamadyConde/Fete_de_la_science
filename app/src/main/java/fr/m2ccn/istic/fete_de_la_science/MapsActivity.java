@@ -80,7 +80,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng centre = new LatLng(45.74232 , 3.167185);
-        mMap.addMarker(new MarkerOptions().position(centre).title("Marker in Centre"));
+        mMap.addMarker(new MarkerOptions().position(centre).title("Marker in Center"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(centre));
 
 
@@ -114,6 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         int i= 1;
         while (i < 100) {
+            //100 parceque avec les 6366 evenement la carte tarde à charger
             reference = FirebaseDatabase.getInstance().getReference("dataFetedelaScience").child(Integer.toString(i)).child("fields");
             i++;
             reference.addListenerForSingleValueEvent(
